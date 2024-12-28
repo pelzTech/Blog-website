@@ -1,0 +1,109 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #EC8178;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .service-card {
+            flex: 1 1 calc(33.333% - 2rem);
+            background-color: #f4f4f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card h2 {
+            font-size: 1.5rem;
+            color: #EC8178;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .services-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                flex: 1 1 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <main>
+        <h1>Our Services</h1>
+        <div class="services-container">
+            <div class="service-card">
+                <h2>Web Development</h2>
+                <p>We create stunning and responsive websites tailored to your needs.</p>
+            </div>
+            <div class="service-card">
+                <h2>SEO Optimization</h2>
+                <p>Boost your website's ranking with our expert SEO strategies.</p>
+            </div>
+            <div class="service-card">
+                <h2>Content Creation</h2>
+                <p>Engage your audience with high-quality, relevant content.</p>
+            </div>
+            <div class="service-card">
+                <h2>Graphic Design</h2>
+                <p>Stand out with our creative and professional graphic design services.</p>
+            </div>
+            <div class="service-card">
+                <h2>Social Media Management</h2>
+                <p>Grow your online presence with our expert social media strategies.</p>
+            </div>
+            <div class="service-card">
+                <h2>Consulting</h2>
+                <p>Get personalized advice to achieve your business goals.</p>
+            </div>
+        </div>
+    </main>
+{% endblock %}

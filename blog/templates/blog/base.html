@@ -1,0 +1,258 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #f2bfa4c8;
+            padding: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 70px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #ffd90080;
+            text-underline-position: below;
+            transform: scale(1.1);
+        }
+
+        .contact-btn {
+            color: #fff;
+            background-color: #EC8178;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .contact-btn:hover{
+            background-color: darkgray;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        footer {
+            background:#f2bfa4c8;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-social, .footer-subscribe, .footer-privacy {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-subscribe h3{
+            color: black;
+        }
+
+        .footer-social ul {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-social p{
+            color: black;
+        }
+
+        .footer-social a {
+            color: black;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #ffd700;
+        }
+
+        .footer-subscribe form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-subscribe input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            width: 80%;
+            max-width: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .footer-subscribe button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #EC8178;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-subscribe button:hover {
+            background-color: #de5935;
+        }
+
+        .footer-privacy a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .footer-privacy a:hover {
+            color: #de5935;
+        }
+
+        @media (max-width: 768px) {
+            nav .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: #F5E7DE;
+                position: absolute;
+                top: 60px;
+                right: 10px;
+                border-radius: 5px;
+                z-index: 1000;
+                padding: 1rem;
+                width: 50%;
+            }
+
+            nav .nav-links.show {
+                display: flex;
+            }
+
+            .menu-icon {
+                color: black;
+                display: block;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-social ul {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <header>
+        <nav>
+            <a href="{% url 'home' %}" class="logo">
+                <img src="/static/images/pelz2.png" alt="My Blog Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'blog_list' %}">Blog</a></li>
+                <li><a href="{% url 'contact' %}" class="contact-btn">Contact</a></li>
+            </ul>
+            <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-container">
+    
+            <div class="footer-social">
+                <p>Follow us on social media:</p>
+                <ul>
+                    <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+
+           
+            <div class="footer-subscribe">
+                <h3>Subscribe to our Newsletter</h3>
+                <form action="{% url 'subscribe' %}" method="post">
+                    {% csrf_token %}
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="footer-privacy">
+                <p><a href="{% url 'privacy_policy' %}">© 2024 pelzTech</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

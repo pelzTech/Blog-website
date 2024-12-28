@@ -1,0 +1,205 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .blog-posts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+    
+        .post {
+            display: flex;
+            flex-direction: column; 
+            gap: 1rem;
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 48%; 
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .post img {
+            width: 100%;
+            height: auto; 
+            object-fit: cover;
+            border-radius: 10px;
+            max-height: 250px; 
+        }
+
+    
+        .post-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .post-content h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content h2 a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .post-content h2 a:hover {
+            color: #F47E3D;
+        }
+
+        .post-content p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+
+        .post-content a {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color:#f2bfa4c8 ;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .post-content a:hover {
+            background-color: #F47E3D;
+            transform: translateY(-2px);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2rem 0;
+        }
+
+        .blog-posts p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            margin: 2rem 0;
+        }
+
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .author-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info span {
+            background-color: #EC8178;
+            font-size: 1rem;
+            color: black;
+        }
+
+    
+        @media (max-width: 768px) {
+            .post {
+                width: 100%;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .post-content p {
+                font-size: 0.9rem; 
+            }
+
+            .post-content a {
+                font-size: 0.9rem; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .post img {
+                max-height: 150px; 
+            }
+
+            .post-content h2 {
+                font-size: 1.3rem; 
+            }
+
+            .post-content p {
+                font-size: 0.85rem; 
+            }
+
+            .post-content a {
+                font-size: 0.85rem; 
+            }
+        }
+    </style>
+
+    <h1>All Blog Posts</h1>
+    <div class="blog-posts">
+        {% for post in posts %}
+            <div class="post">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% else %}
+                    <img src="{% static 'blog/default-image.jpg' %}" alt="Default Image">
+                {% endif %}
+                <div class="post-content">
+                    <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+                    <p>{{ post.created_at|date:"F j, Y" }}</p>
+                    <p>{{ post.content|truncatewords:30 }}</p>
+                    <a href="{% url 'post_detail' post.pk %}">Read More</a>
+                </div>
+
+                {% if post.additional_image %}
+                    <div class="additional-image">
+                        <img src="{{ post.additional_image.url }}" alt="Additional Image">
+                    </div>
+                {% endif %}
+
+                <div class="author-info">
+                    {% if post.author.userprofile.avatar %}
+                        <img src="{{ post.author.userprofile.avatar.url }}" alt="{{ post.author.username }}">
+                    {% else %}
+                        <img src="{% static 'blog/default-avatar.jpg' %}" alt="Default Avatar">
+                    {% endif %}
+                    <span>By {{ post.author.username }}</span>
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No blog posts are available at the moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

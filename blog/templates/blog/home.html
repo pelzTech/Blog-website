@@ -1,0 +1,87 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <style>
+        main {
+            background-color: #F5E7DE;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2rem;
+        }
+
+        
+        h2 {
+            color: #444;
+            font-size: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .latest-posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .post-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            color: aqua;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 1rem;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-card a {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .post-card a:hover {
+            text-decoration: underline;
+        }
+
+        .post-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+
+    <h1>Welcome to Our Blog!</h1>
+    <p>This is the home page where you can explore the latest updates and stories.</p>
+
+    <h2>Latest Blog Posts</h2>
+    <div class="latest-posts">
+        {% for post in latest_posts %}
+            <div class="post-card">
+                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                <p class="post-date">Published on {{ post.created_at|date:"F j, Y" }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
